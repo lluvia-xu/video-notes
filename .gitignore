@@ -1,0 +1,14 @@
+# 登录凭证，绝不提交
+*cookies*.txt
+# 工具与模型（setup.sh 会生成）
+venv/
+models/
+.video-notes/
+_工具/
+# 临时媒体
+*.mp4
+*.m4a
+*.wav
+*.jpg
+_临时截图/
+.DS_Store
