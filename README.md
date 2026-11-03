@@ -4,9 +4,14 @@
 
 - 📝 **口播文字稿**：没有字幕的口播也能转，本地语音识别，免费、音频不上传
 - 🖼️ **画面文字**：自动抽关键帧，读出屏幕上的提示词、参数、字幕卡
+- 📥 **批量读我的喜欢 / 收藏**（新）：读取你抖音账号里「喜欢」或「收藏」的前 N 条，先出速览表，你挑出想看的再逐条转写、总结
+- 🗂️ **收藏日报**（新）：说一句「出收藏日报」，自动接着上次读新收藏，每条写「讲什么 / 钩子 / 值不值」，有方法的视频再写四格知识卡片（讲了什么 / 钩子在第几秒 / 能抄什么 / 要不要跟进），存进 `抖音知识库/`（Obsidian 可直接打开）。只在你开口时运行，不定时
+- ✅ **字幕校对**（新）：抖音等视频画面里有字幕时，只在语音识别没把握的地方截字幕做 OCR，纠正数字和同音字
 - 📌 **总结**：要点、操作步骤、可借鉴之处
 
-处理完自动删除下载的音视频和截图，只留文字。也支持"调研某类视频"：多平台各挑几条，汇总成调研报告。
+- 🎬 **画面拆解**（新）：纯画面视频（变装、卡点、氛围片、MV）自动切镜头、测运镜和节拍，逐镜头分析景别、运镜、构图、穿搭、光色、转场和卡点；分析氛围感从哪来、为什么能火；并写出复刻用的 AI 生成视频提示词
+
+处理完自动删除下载的音视频和截图，只留文字（画面拆解会保留几张镜头缩略图）。也支持"调研某类视频"：先确认是找教程、研究爆款还是竞品调研，按对应标准选样（爆款研究会加普通视频做对照），汇总成带选样说明的调研报告。
 
 ## 适用的 AI 工具
 
@@ -50,6 +55,8 @@ bash scripts/setup.sh            # 默认装到 ~/.video-notes
 总结这个视频 https://v.douyin.com/xxxx/
 这个 B 站视频讲了什么 BV1xxxx（口播无字幕）
 调研一下 XX 在抖音和 B 站上的宣传视频
+拆解一下这个视频的分镜和卡点，我想复刻（附视频文件或链接）
+读我抖音收藏的前 30 条，出个速览表
 ```
 
 说明平台和类型（口播 / 画面文字 / 有字幕）能更快，不说也会自动判断。
@@ -72,14 +79,20 @@ bash scripts/setup.sh            # 默认装到 ~/.video-notes
 
 ```
 video-notes/
-├── SKILL.md          # 给 AI 看的完整流程
+├── SKILL.md          # 基础流程 + 模式目录（每次都读，约 90 行）
 ├── scripts/
 │   ├── setup.sh      # 一次性安装（venv + 依赖 + Whisper small 模型）
-│   └── vtool.py      # 下载 / 转写 / 抽关键帧
+│   └── vtool.py      # 下载 / 转写 / 抽关键帧 / 切镜头 / 运镜 / 节拍卡点
+├── references/
+│   ├── mode-*.md            # 画面拆解 / 调研 / 批量 / 收藏日报四个模式的步骤（按需读取）
+│   ├── platforms.md、transcription.md、tools.md  # 取素材、转写、工具的详细说明
+│   ├── visual-breakdown.md  # 画面拆解框架和提示词模板
+│   ├── aesthetics-viral.md  # 氛围感与爆款分析框架
+│   └── douyin-batch.md      # 抖音喜欢/收藏批量读取的实现细节
 ├── README.md
 └── LICENSE
 ```
 
 ## 致谢
 
-参考了 [threerocks/video-subtitle-parser](https://github.com/threerocks/video-subtitle-parser) 和 [Panniantong/agent-reach](https://github.com/Panniantong/agent-reach)（均为 MIT 协议）。使用了 [yt-dlp](https://github.com/yt-dlp/yt-dlp)、[bilibili-cli](https://pypi.org/project/bilibili-cli/)、[faster-whisper](https://github.com/SYSTRAN/faster-whisper)、[FFmpeg](https://ffmpeg.org/)。
+画面拆解框架参考了 [0xsline/openchatcut](https://github.com/0xsline/openchatcut) 的 storyboard-shot-breakdown、machina-exm/film-studio-skills 的 film-breakdown、hexiaochun/seedance2-api 的分镜提示词公式。参考了 [threerocks/video-subtitle-parser](https://github.com/threerocks/video-subtitle-parser) 和 [Panniantong/agent-reach](https://github.com/Panniantong/agent-reach)（均为 MIT 协议）。使用了 [yt-dlp](https://github.com/yt-dlp/yt-dlp)、[bilibili-cli](https://pypi.org/project/bilibili-cli/)、[faster-whisper](https://github.com/SYSTRAN/faster-whisper)、[FFmpeg](https://ffmpeg.org/)。

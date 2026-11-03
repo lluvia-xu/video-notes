@@ -17,9 +17,9 @@ if [ ! -x "$VN_HOME/venv/bin/python" ]; then
   python3 -m venv --copies "$VN_HOME/venv"
 fi
 PY="$VN_HOME/venv/bin/python"
-if ! "$PY" -c "import faster_whisper, yt_dlp, bili_cli, opencc, requests" 2>/dev/null; then
+if ! "$PY" -c "import faster_whisper, yt_dlp, bili_cli, opencc, requests, cv2, rapidocr_onnxruntime" 2>/dev/null; then
   "$PY" -m pip install -q --upgrade pip
-  "$PY" -m pip install -q yt-dlp requests opencc-python-reimplemented faster-whisper bilibili-cli
+  "$PY" -m pip install -q yt-dlp requests opencc-python-reimplemented faster-whisper bilibili-cli opencv-python-headless rapidocr_onnxruntime
 fi
 
 cp "$HERE/vtool.py" "$VN_HOME/vtool.py"
